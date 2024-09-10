@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abarrotes las campanas</title>
+    <link rel="stylesheet" href="css/calendarstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+
+    </script>
+</head> 
+<body>
+    <aside class="menu">
+        <ul>
+            <li><a href="index.html"><i class="fa-solid fa-house"></i>&nbsp &nbsp Inicio</a></li><br>
+            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>&nbsp &nbsp Productos</a></li><br>
+            <li><a href="#"><i class="fa-solid fa-money-bill"></i>&nbsp &nbsp Ventas</a></li><br>
+            <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> &nbsp &nbsp Calendario</a></li><br>
+            <li><a href="proveedores.php"><i class="fa-solid fa-address-book"></i> &nbsp &nbsp Proveedores</a></li><br>
+            <li><a href="clientes.php"><i class="fa-solid fa-user"></i> &nbsp &nbsp Clientes</a></li><br>
+        </ul>
+        </ul>
+    </aside>
+    <section class="content">
+        <center><h1>Abarrotes las campanas</h1><br></center>
+        <div id='calendar'></div>
+    </section>
+</body>
+</html>

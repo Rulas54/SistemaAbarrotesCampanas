@@ -1,0 +1,81 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+}
+
+/* Estilos del menú */
+.menu {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding-top: 60px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* Permite desplazamiento si el contenido del menú es demasiado largo */
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu ul li {
+    padding: 10px 20px;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-size: x-large;
+}
+
+.menu ul li a:hover {
+    background-color: #575757; /* Cambia el fondo al pasar el mouse */
+}
+
+/* Estilos del contenido principal */
+.content {
+    margin-left: 250px; /* Deja espacio para el menú */
+    padding: 20px;
+    flex: 1; /* Toma el resto del espacio disponible */
+    overflow-y: auto; /* Permite desplazamiento si el contenido es demasiado largo */
+}
+
+h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+/* Estilos del DataTable */
+/* Ajustar el tamaño de fuente de la tabla */
+#Tabla_Buscar{
+    width: 70%;
+}
+/* Ajustar el padding de las celdas */
+#Tabla_Buscar th,
+#Tabla_Buscar td {
+    padding: 5px; /* Ajusta el padding según lo necesites */
+}
+
+/* Ajustar el ancho de las celdas */
+#Tabla_Buscar th,
+#Tabla_Buscar td {
+    width: auto; 
+}
+
+#Tabla_Buscar td{
+    border-bottom: 1px solid #111; /* Agrega color a los bordes de debajo de cada fila */
+    text-align: center; /* CENTRA texto de las columnas */
+}
+
+#Tabla_Buscar tr:hover { /*¨Hace que se resalte toda la fila */
+    color: #575757;
+    font-weight: bold;
+}
