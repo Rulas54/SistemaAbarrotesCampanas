@@ -37,7 +37,7 @@
     <aside class="menu">
         <ul>
             <li><a href="index.html"><i class="fa-solid fa-house"></i>&nbsp &nbsp Inicio</a></li><br>
-            <li><a href="productos.php"><i class="fa-solid fa-cart-shopping"></i>&nbsp &nbsp Productos</a></li><br>
+            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>&nbsp &nbsp Productos</a></li><br>
             <li><a href="#"><i class="fa-solid fa-money-bill"></i>&nbsp &nbsp Ventas</a></li><br>
             <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> &nbsp &nbsp Calendario</a></li><br>
             <li><a href="proveedores.php"><i class="fa-solid fa-address-book"></i> &nbsp &nbsp Proveedores</a></li><br>
@@ -47,12 +47,13 @@
     </aside>
     <section class="content">
         <center><h1>Abarrotes las campanas</h1><br></center>
-        <center><div class="alumnos-lista">
+        <center><div class="productos-lista">
             <table id="Tabla_Buscar">
                 <thead>
                     <tr>
                         <th class="id-header">Nombre</th>
-                        <th>Numero de Telefono</th>
+                        <th>Codigo de Barras</th>
+                        <th>Precio</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +63,7 @@
                     if ($conexion->connect_error) {
                         die("Error en la conexión: " . $conexion->connect_error);
                     }
-                    $sql = "SELECT Nombre, NumeroTelefono FROM contactos";
+                    $sql = "SELECT Nombre, CodBarras , Cantidad FROM productos";
                     $result = $conexion->query($sql);
                     if ($result === false) {
                         die("Error en la consulta SQL: " . $conexion->error);
@@ -72,7 +73,9 @@
                             ?>
                             <tr>
                                 <td id="Nombre"><?php echo $row["Nombre"]; ?></td>
-                                <td><?php echo $row["NumeroTelefono"]; ?></td>
+
+
+                                <td><?php echo $row["CodBarras"]; ?></td>
                             </tr>
                         <?PHP
                         }
