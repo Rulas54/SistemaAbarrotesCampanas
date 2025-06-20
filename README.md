@@ -6,10 +6,6 @@ El proyecto fue útil para la escuela y está desarrollado con tecnologías web 
 
 ---
 
-## 🌐 English Version Below
-
----
-
 ## 🛠 Tecnologías utilizadas
 
 - Backend: PHP  
@@ -30,7 +26,7 @@ El proyecto fue útil para la escuela y está desarrollado con tecnologías web 
 ## 🧑‍💻 Autor
 
 **Luis Raúl Reyes Vázquez**  
-[LinkedIn](https://www.linkedin.com/in/luis-raúl-reyes-vazquez)  
+[LinkedIn](https://www.linkedin.com/in/luis-raúl-reyes-vazquez-ba310a15a/)  
 [GitHub](https://github.com/Rulas54)
 
 ---
