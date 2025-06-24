@@ -52,3 +52,19 @@ h1 {
     margin: 0;
     font-size: 30px;
 }
+img {
+    height: 5%;
+    width: 5%;
+}
+.title-container {
+    display: flex; /* Alinea los elementos en fila */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    gap: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.title-container img {
+    width: 50px; /* Ajusta el tamaño del icono */
+    height: auto;
+}
+

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/proveedorstyle.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="icon" type="image/png" href="img/store.png">
     <script>
         $(document).ready(function () {
             // Inicializa tu DataTable
@@ -38,7 +39,6 @@
         <ul>
             <li><a href="index.html"><i class="fa-solid fa-house"></i>&nbsp &nbsp Inicio</a></li><br>
             <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>&nbsp &nbsp Productos</a></li><br>
-            <li><a href="#"><i class="fa-solid fa-money-bill"></i>&nbsp &nbsp Ventas</a></li><br>
             <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> &nbsp &nbsp Calendario</a></li><br>
             <li><a href="proveedores.php"><i class="fa-solid fa-address-book"></i> &nbsp &nbsp Proveedores</a></li><br>
             <li><a href="clientes.php"><i class="fa-solid fa-user"></i> &nbsp &nbsp Clientes</a></li><br>
@@ -63,7 +63,7 @@
                     if ($conexion->connect_error) {
                         die("Error en la conexión: " . $conexion->connect_error);
                     }
-                    $sql = "SELECT Nombre, CodBarras , Cantidad FROM productos";
+                    $sql = "SELECT Nombre, CodBarras, precio FROM productos";
                     $result = $conexion->query($sql);
                     if ($result === false) {
                         die("Error en la consulta SQL: " . $conexion->error);
@@ -76,6 +76,8 @@
 
 
                                 <td><?php echo $row["CodBarras"]; ?></td>
+
+                                <td><?php echo "$".$row["precio"]; ?></td>
                             </tr>
                         <?PHP
                         }

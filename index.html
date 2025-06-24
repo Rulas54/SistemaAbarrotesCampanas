@@ -4,23 +4,335 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abarrotes las campanas</title>
-    <link rel="stylesheet" href="css/calendarstyle.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- Aquí tu CSS externo -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="img/store.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .cobro-container {
+    padding: 20px;
+  }
+.product-entry {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.product-entry input {
+    padding: 10px;
+    font-size: 1.2em;
+    width: 50%;
+}
+.cart {
+    margin-top: 20px;
+}
+.cart table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.cart th, .cart td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+.total {
+    margin-top: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    color: green;
+}
+.btn-cobrar {
+    margin-top: 40px;
+    padding: 30px 60px;
+    font-size: xx-large;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+}
+
+.btn-eliminar{
+    padding: 10px 20px;
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-agregar {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px;
+    background-color: #2196F3;
+    color: white;
+    font-size: large;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 40%;
+    text-align: center;
+    box-shadow: 0 0 10px #000;
+}
+
+.modal-content input {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+    width: 80%;
+}
+
+.close {
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+</style>
 </head>
 <body>
-    <aside class="menu">
-        <ul>
-            <li><a href="index.html"><i class="fa-solid fa-house"></i>&nbsp &nbsp Inicio</a></li><br>
-            <li><a href="productos.php"><i class="fa-solid fa-cart-shopping"></i>&nbsp &nbsp Productos</a></li><br>
-            <li><a href="#"><i class="fa-solid fa-money-bill"></i>&nbsp &nbsp Ventas</a></li><br>
-            <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i> &nbsp &nbsp Calendario</a></li><br>
-            <li><a href="proveedores.php"><i class="fa-solid fa-address-book"></i> &nbsp &nbsp Proveedores</a></li><br>
-            <li><a href="clientes.php"><i class="fa-solid fa-user"></i> &nbsp &nbsp Clientes</a></li><br>
-        </ul>
-        </ul>
-    </aside>
-    <section class="content">
-        <center><h1>Abarrotes las campanas</h1><br></center>
-    </section>
+<aside class="menu">
+    <ul>
+        <li><a href="index.html"><i class="fa-solid fa-house"></i>&nbsp;&nbsp;Inicio</a></li><br>
+        <li><a href="productos.php"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;Productos</a></li><br>
+        <li><a href="calendar.html"><i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;Calendario</a></li><br>
+        <li><a href="proveedores.php"><i class="fa-solid fa-address-book"></i>&nbsp;&nbsp;Proveedores</a></li><br>
+        <li><a href="clientes.php"><i class="fa-solid fa-user"></i>&nbsp;&nbsp;Clientes</a></li><br>
+    </ul>
+</aside>
+
+<section class="content">
+    <div class="title-container">
+        <img src="./img/campana.png" alt="icon">
+        <h1>Abarrotes las campanas</h1>
+    </div>
+
+    <div class="cobro-container">
+        <h2>Área de Cobro</h2>
+        <button class="btn-agregar" onclick="abrirModal()">Agregar Producto</button>
+
+        <!-- Modal -->
+        <div id="modal-producto" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <h3>Agregar Nuevo Producto</h3>
+                <form id="form-producto" onsubmit="guardarProducto(event)">
+                    <input type="text" id="nuevo-nombre" placeholder="Nombre del producto" required><br>
+                    <input type="text" id="nuevo-barcode" placeholder="Código de barras" required><br>
+                    <input type="text" id="nuevo-precio" placeholder="Precio" step="0.01" required><br>
+                    <button type="submit" class="btn-cobrar">Guardar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="product-entry">
+            <input type="text" id="barcode" placeholder="Escanea o escribe el código de barras" autofocus>
+        </div>
+
+        <div class="cart">
+            <table id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Eliminar Producto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Productos agregados aparecerán aquí -->
+                </tbody>
+            </table>
+
+            <div class="total" id="total">Total: $0.00</div>
+
+            <button class="btn-cobrar" onclick="cobrar()">Cobrar</button>
+        </div>
+    </div>
+</section>
+
+<script>
+let total = 0;
+let totalProductos = 0;
+
+document.getElementById('barcode').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        buscarProducto();
+    }
+});
+
+function buscarProducto() {
+    const barcode = document.getElementById('barcode').value.trim();
+    if (barcode === '') return;
+
+    fetch('php/buscar_producto.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'barcode=' + encodeURIComponent(barcode)
+    })
+    .then(response => response.json())
+    .then(producto => {
+        if (producto.existe) {
+            agregarAlCarrito(producto.nombre, producto.precio);
+            Swal.fire({
+                icon: 'success',
+                title: 'Producto agregado',
+                showConfirmButton: false,
+                timer: 800
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Producto no encontrado',
+                text: 'No se encontró el producto en la base de datos.'
+            });
+        }
+        document.getElementById('barcode').value = '';
+        document.getElementById('barcode').focus();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un problema al buscar el producto.'
+        });
+    });
+}
+
+function agregarAlCarrito(nombre, precio) {
+    const quantity = 1;
+    const subtotal = precio * quantity;
+    total += subtotal;
+    totalProductos += quantity;
+
+    const table = document.getElementById('cart-table').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+
+    newRow.innerHTML = `
+        <td>${nombre}</td>
+        <td>$${precio.toFixed(2)}</td>
+        <td>${quantity}</td>
+        <td>$${subtotal.toFixed(2)}</td>
+        <td><button onclick="eliminarProducto(this, ${precio}, ${quantity})" class="btn-eliminar"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button></td>
+    `;
+
+    actualizarTotal();
+}
+
+function eliminarProducto(boton, precio, cantidad) {
+    // Eliminamos la fila
+    const fila = boton.parentElement.parentElement;
+    fila.remove();
+
+    // Actualizamos total y total de productos
+    total -= precio * cantidad;
+    totalProductos -= cantidad;
+    
+    if (total < 0) total = 0;
+    if (totalProductos < 0) totalProductos = 0;
+
+    actualizarTotal();
+}
+
+
+function actualizarTotal() {
+    document.getElementById('total').innerText = `Total: $${total.toFixed(2)} | Productos: ${totalProductos}`;
+}
+
+
+function cobrar() {
+    if (total === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Carrito vacío',
+            text: 'No hay productos en el carrito.'
+        });
+        return;
+    }
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Compra realizada',
+        html: `Total pagado: <strong>$${total.toFixed(2)}</strong><br>Total de productos: <strong>${totalProductos}</strong>`,
+        confirmButtonText: 'Aceptar'
+    });
+
+    document.getElementById('cart-table').getElementsByTagName('tbody')[0].innerHTML = '';
+    total = 0;
+    totalProductos = 0; // RESETEAMOS PRODUCTOS
+    actualizarTotal();
+    document.getElementById('barcode').focus();
+}
+
+function abrirModal() {
+    document.getElementById('modal-producto').style.display = 'block';
+}
+
+function cerrarModal() {
+    document.getElementById('modal-producto').style.display = 'none';
+}
+
+function guardarProducto(e) {
+    e.preventDefault();
+    const nombre = document.getElementById('nuevo-nombre').value.trim();
+    const barcode = document.getElementById('nuevo-barcode').value.trim();
+    const precio = parseFloat(document.getElementById('nuevo-precio').value);
+
+    if (!nombre || !barcode || isNaN(precio)) {
+        Swal.fire('Error', 'Por favor llena todos los campos correctamente.', 'error');
+        return;
+    }
+    
+
+    // Aquí puedes hacer un fetch a PHP para guardar
+    fetch('php/agregar_producto.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `nombre=${encodeURIComponent(nombre)}&barcode=${encodeURIComponent(barcode)}&precio=${encodeURIComponent(precio)}`
+    })
+    .then(response => response.text())
+    .then(result => {
+        Swal.fire('Éxito', 'Producto agregado correctamente.', 'success');
+        cerrarModal();
+        document.getElementById('form-producto').reset();
+    })
+    .catch(error => {
+        console.error(error);
+        Swal.fire('Error', 'No se pudo agregar el producto.', 'error');
+    });
+}
+
+
+</script>
+
 </body>
 </html>

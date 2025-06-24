@@ -59,3 +59,16 @@ h1 {
     max-width: 800px; /* Ancho máximo del calendario */
     margin: 20px auto; /* Asegura un margen alrededor del calendario */
 }
+
+
+.title-container {
+    display: flex; /* Alinear en una fila */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    gap: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.title-container img {
+    width: 50px; /* Reducir el tamaño del icono */
+    height: auto;
+}
